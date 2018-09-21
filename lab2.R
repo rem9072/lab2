@@ -1,6 +1,5 @@
 library(tidyverse)
 
-
 #Tidy Data
 
 lab2 <- read.csv("C:/Users/rfmag/Downloads/lab2.csv")
@@ -29,7 +28,7 @@ expend <- read.csv("C:/Users/rfmag/Downloads/expenditures.csv",skip=2)
 
 coveragemod<-coverage[-c(68:53),] %>%
   gather(2:29, key="year_coverage", value="number")%>% 
-  separate("year_coverage", c("year","coverage type"), sep= "__")
+  separate("year_coverage", c("year","coverage_type"), sep= "__")
 
 expendmod <- expend[-c(61:53),]%>%
   select(matches("location|2013|2014")) %>%
@@ -37,7 +36,9 @@ expendmod <- expend[-c(61:53),]%>%
   separate("year", c("year","total health spending"), sep= "__") %>%
   select(one_of(c("Location","year","cost")))
 
-expend_coverage <- full_join(coveragemod,expendmod) %>%
+coveragetotal<-filter(coveragemod,coverage_type == "Total") 
+expend_coverage_total<- full_join(coveragetotal,expendmod)
+expend_coverage_all <- full_join(expend_coverage_total,coveragemod) %>%
   separate("year", c("x","year"), sep= "X") %>%
   select(-x)
         
