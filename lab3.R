@@ -1,3 +1,6 @@
+#Reed Magleby
+#Lab Assignemnt 3
+
 library(tidyverse)
 library(gapminder)
 
@@ -9,7 +12,6 @@ ggplot(aes(x=gdpPercap, y=lifeExp)) +
   geom_point(size=2) +
   geom_text(data=europe, mapping=aes(x=gdpPercap, y=lifeExp, label=country), color="blue",vjust= 1.5) +
   labs(x="GDP per capita",y="life expectancy")
-
 
 #Problem 2
 filter(gapminder,year==2007) %>%
